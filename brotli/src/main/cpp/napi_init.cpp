@@ -5,10 +5,7 @@
 #include <stdio.h>
 #include <hilog/log.h>
 #include <decode.h>
-#include <encode.h>
 #include <arpa/inet.h>
-
-#define LOG_TAG "[Room][UNCOMPRESS]"
 
 static napi_value Uncompress(napi_env env, napi_callback_info info)
 {

@@ -1,0 +1,32 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "bili_pink",
+      "value": "#FFFB7299"
+    },
+    {
+      "name": "text_color1",
+      "value": "#FF303030"
+    },
+    {
+      "name": "text_color2",
+      "value": "#FF727272"
+    },
+    {
+      "name": "player_slider_track",
+      "value": "#80FFFFFF"
+    },
+    {
+      "name": "player_slider_selected",
+      "value": "#FFDDDDDD"
+    },
+    {
+      "name": "home_search",
+      "value": "#FFE9E9E9"
+    }
+  ]
+}

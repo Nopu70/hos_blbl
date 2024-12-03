@@ -1,0 +1,84 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "BILIBILI"
+    },
+    {
+      "name": "coin",
+      "value": "Coin:"
+    },
+    {
+      "name": "space",
+      "value": "Space"
+    },
+    {
+      "name": "dynamic",
+      "value": "Dynamic"
+    },
+    {
+      "name": "follow",
+      "value": "Follow"
+    },
+    {
+      "name": "history",
+      "value": "History"
+    },
+    {
+      "name": "collect",
+      "value": "Collect"
+    },
+    {
+      "name": "watch_later",
+      "value": "Watch later"
+    },
+    {
+      "name": "settings",
+      "value": "Settings"
+    },
+    {
+      "name": "fans",
+      "value": "Fans"
+    },
+    {
+      "name": "offline",
+      "value": "Offline"
+    },
+    {
+      "name": "followed",
+      "value": "已关注"
+    },
+    {
+      "name": "reply_title1",
+      "value": "最新评论"
+    },
+    {
+      "name": "reply_title2",
+      "value": "热门评论"
+    },
+    {
+      "name": "reply_sort1",
+      "value": "按热度"
+    },
+    {
+      "name": "reply_sort2",
+      "value": "按时间"
+    },
+    {
+      "name": "input_forward",
+      "value": "转到动态"
+    },
+    {
+      "name": "input_submit",
+      "value": "发布"
+    }
+  ]
+}

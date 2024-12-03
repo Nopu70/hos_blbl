@@ -1,0 +1,16 @@
+{
+  "color": [
+    {
+      "name": "color_1",
+      "value": "#ff0000"
+    },
+    {
+      "name": "text_color1",
+      "value": "#FFFFFFFF"
+    },
+    {
+      "name": "text_color2",
+      "value": "#FFCCCCCC"
+    }
+  ]
+}

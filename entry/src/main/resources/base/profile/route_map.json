@@ -1,0 +1,44 @@
+{
+  "routerMap": [
+    {
+      "name": "Player",
+      "pageSourceFile": "src/main/ets/pages/player/Player.ets",
+      "buildFunction": "entryBuilder",
+      "data": {
+        "description": "Player"
+      }
+    },
+    {
+      "name": "Login",
+      "pageSourceFile": "src/main/ets/pages/Login.ets",
+      "buildFunction": "entryBuilder",
+      "data": {
+        "description": "Login"
+      }
+    },
+    {
+      "name": "Room",
+      "pageSourceFile": "src/main/ets/pages/live/Room.ets",
+      "buildFunction": "entryBuilder",
+      "data": {
+        "description": "Room"
+      }
+    },
+    {
+      "name": "Input",
+      "pageSourceFile": "src/main/ets/pages/InputDialog.ets",
+      "buildFunction": "entryBuilder",
+      "data": {
+        "description": "Input"
+      }
+    },
+    {
+      "name": "LiveArea",
+      "pageSourceFile": "src/main/ets/pages/live/LiveArea.ets",
+      "buildFunction": "entryBuilder",
+      "data": {
+        "description": "LiveArea"
+      }
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "哔哩哔哩"
+    },
+    {
+      "name": "coin",
+      "value": "硬币:"
+    },
+    {
+      "name": "space",
+      "value": "空间"
+    },
+    {
+      "name": "dynamic",
+      "value": "动态"
+    },
+    {
+      "name": "follow",
+      "value": "关注"
+    },
+    {
+      "name": "history",
+      "value": "历史记录"
+    },
+    {
+      "name": "collect",
+      "value": "我的收藏"
+    },
+    {
+      "name": "watch_later",
+      "value": "稍后观看"
+    },
+    {
+      "name": "settings",
+      "value": "设置"
+    },
+    {
+      "name": "fans",
+      "value": "粉丝"
+    },
+    {
+      "name": "offline",
+      "value": "离线缓存"
+    },
+    {
+      "name": "followed",
+      "value": "已关注"
+    },
+    {
+      "name": "reply_title1",
+      "value": "最新评论"
+    },
+    {
+      "name": "reply_title2",
+      "value": "热门评论"
+    },
+    {
+      "name": "reply_sort1",
+      "value": "按热度"
+    },
+    {
+      "name": "reply_sort2",
+      "value": "按时间"
+    },
+    {
+      "name": "input_forward",
+      "value": "转到动态"
+    },
+    {
+      "name": "input_submit",
+      "value": "发布"
+    }
+  ]
+}

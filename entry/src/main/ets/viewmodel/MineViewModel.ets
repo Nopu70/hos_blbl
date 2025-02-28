@@ -2,11 +2,10 @@ import { ErrorMsg } from "../model/ErrorMsg";
 import { httpRequestGet } from 'ets/utils/HttpUtil'
 import { Stat, User } from "../model/User";
 
-@Observed
 export class MineViewModel{
 
   user?: User;
-  stat: Stat = new Stat();
+  stat?: Stat;
 
   loadUserInfo() {
     let url = "https://api.bilibili.com/x/web-interface/nav";
@@ -25,7 +24,7 @@ export class MineViewModel{
         }
       }
       this.user = user;
-      if (AppStorage.get<number>("uid") === 0) {
+      if (user.isLogin && AppStorage.get<number>("uid") != user.mid) {
         AppStorage.setOrCreate("uid", user.mid);
       }
     }).catch((error: Error) => {
@@ -33,7 +32,10 @@ export class MineViewModel{
     });
   }
 
-  loadUserStat() {
+  async loadUserStat() {
+    await new Promise<void>((resolve: Function, reject: Function) => {
+      setTimeout(resolve, 2000)
+    })
     let url = "https://api.bilibili.com/x/web-interface/nav/stat";
     httpRequestGet(url).then((result) => {
       this.stat = result["data"] as Stat;

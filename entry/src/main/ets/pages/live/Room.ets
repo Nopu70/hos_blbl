@@ -11,7 +11,6 @@ import { buffer, HashSet } from "@kit.ArkTS";
 import { parseBiliDm } from "brotli";
 
 const TAG = '[Room]';
-PersistentStorage.persistProp("uid", 0);
 
 @Builder
 export function entryBuilder(_: string, params: RoomBean) {
@@ -25,7 +24,7 @@ struct Room {
 
   @StorageProp("deviceHeight") deviceHeight: number = 0;
   @StorageProp("navHeight") navHeight: number = 0;
-  @StorageLink("uid") uid: number = 0;
+  @StorageProp("uid") uid: number = 0;
 
   private playerCtrl?: AVPlayerController;
   private componentCtrl = new XComponentController();
@@ -146,9 +145,12 @@ struct Room {
           case 2:
             break;
           case 3:
-            let a = parseBiliDm(d.slice(16));
-            a.forEach((item) => {
-              this.parsePacket(item);
+            parseBiliDm(d.slice(16)).then((dms) => {
+              dms.forEach((item) => {
+                this.parsePacket(item);
+              })
+            }, (error:Error) => {
+              Logger.info(TAG, `parse dm failed: ${error.message}`);
             })
             break;
         }

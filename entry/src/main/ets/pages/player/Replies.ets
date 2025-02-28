@@ -103,6 +103,7 @@ export struct Replies {
 struct RepliesItem{
 
   @Prop data: Reply;
+  @Consume("r_nav_stack") rNavStack: NavPathStack;
   mid: number = 0;
 
   @State isFold: boolean = true;  //是否是折叠状态，是的话。评论折叠并显示展开
@@ -246,6 +247,9 @@ struct RepliesItem{
             .padding(8)
             .margin({ top: 10 })
             .borderRadius(4)
+            .onClick(() => {
+              this.rNavStack?.pushPathByName("SReplies", this.data);
+            })
           }
         }.layoutWeight(1)
         .margin({ left: 12 })

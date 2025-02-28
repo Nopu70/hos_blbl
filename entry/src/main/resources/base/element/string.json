@@ -79,6 +79,10 @@
     {
       "name": "input_submit",
       "value": "发布"
+    },
+    {
+      "name": "s_reply_title",
+      "value": "评论详情"
     }
   ]
 }

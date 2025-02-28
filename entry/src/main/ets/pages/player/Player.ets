@@ -23,6 +23,7 @@ struct Player{
   @State currSwiperIndex: number = 0;
   @State detail?: BVDetail | null = null;
   @Consume("nav_stack") navStack: NavPathStack;
+  @Provide("r_nav_stack") rNavStack: NavPathStack = new NavPathStack();
   @StorageProp("deviceWidth") deviceWidth: number = 0;
 
   private barItemInfo:[number, number][] = [];
@@ -31,7 +32,7 @@ struct Player{
   @State indicatorStart: number = 0
   @State currTabIndex: number = 0;
 
-  private bid: string = "";
+  bid: string = "";
   private dataSource = new DataSource();
   private aspect: number = 16 / 9;
   private context: Context = getContext(this);
@@ -77,59 +78,62 @@ struct Player{
           this.currSwiperIndex = targetIndex;
         })
         if (this.detail) {
-          Stack({ alignContent: Alignment.TopStart }){
-            Tabs(){
-              TabContent(){
-                PlayerCard({ data: this.detail, onItemClick: async (bid: string) => {
-                  this.reload(bid);
-                }})
-              }.tabBar(this.createTabBarItem(0, "简介"))
-              TabContent(){
-                Replies({ bv: this.detail.View })
-              }.tabBar(this.createTabBarItem(1, "评论"))
-            }
-            .barWidth(200)
-            .barHeight(40)
-            .divider({strokeWidth: px2vp(1), color: "#ffd7d7d7" })
-            .onAreaChange((_o, n) => {
-              this.tabWidth = n.width as number;
-            }).onGestureSwipe((index, event) => {
-              let next = index;
-              let cs = this.barItemInfo[index][0];
-              let cw = this.barItemInfo[index][1];
-              if (event.currentOffset > 0) {
-                next--;
-              } else if (event.currentOffset < 0) {
-                next++;
+          Navigation(this.rNavStack) {
+            Stack({ alignContent: Alignment.TopStart }){
+              Tabs(){
+                TabContent(){
+                  PlayerCard({ data: this.detail, onItemClick: async (bid: string) => {
+                    this.reload(bid);
+                  }})
+                }.tabBar(this.createTabBarItem(0, "简介"))
+                TabContent(){
+                  Replies({ bv: this.detail?.View })
+                }.tabBar(this.createTabBarItem(1, "评论"))
               }
-              if (next < 0 || next >= this.barItemInfo.length) {
-                return;
-              }
-              let ns = this.barItemInfo[next][0];
-              let nw = this.barItemInfo[next][1];
-              let p = Math.abs(event.currentOffset / this.tabWidth);
-              let is = cs + (ns - cs) * p;
-              let iw = cw + (nw - cw) * p;
-              this.setIndicatorAttr(is, iw);
-            }).onAnimationStart((_index, targetIndex, event) => {
-              this.currTabIndex = targetIndex;
-              let duration = 300;
-              if (event.velocity !== 0) {
-                duration = Math.min(duration, Math.abs(event.targetOffset * 1000 / event.velocity));
-              }
-              animateTo({ duration: duration, curve: Curve.Linear }, () => {
-                this.setIndicatorAttr(this.barItemInfo[targetIndex][0],
-                  this.barItemInfo[targetIndex][1]);
+              .barWidth(200)
+              .barHeight(40)
+              .divider({strokeWidth: px2vp(1), color: "#ffd7d7d7" })
+              .onAreaChange((_o, n) => {
+                this.tabWidth = n.width as number;
+              }).onGestureSwipe((index, event) => {
+                let next = index;
+                let cs = this.barItemInfo[index][0];
+                let cw = this.barItemInfo[index][1];
+                if (event.currentOffset > 0) {
+                  next--;
+                } else if (event.currentOffset < 0) {
+                  next++;
+                }
+                if (next < 0 || next >= this.barItemInfo.length) {
+                  return;
+                }
+                let ns = this.barItemInfo[next][0];
+                let nw = this.barItemInfo[next][1];
+                let p = Math.abs(event.currentOffset / this.tabWidth);
+                let is = cs + (ns - cs) * p;
+                let iw = cw + (nw - cw) * p;
+                this.setIndicatorAttr(is, iw);
+              }).onAnimationStart((_index, targetIndex, event) => {
+                this.currTabIndex = targetIndex;
+                let duration = 300;
+                if (event.velocity !== 0) {
+                  duration = Math.min(duration, Math.abs(event.targetOffset * 1000 / event.velocity));
+                }
+                animateTo({ duration: duration, curve: Curve.Linear }, () => {
+                  this.setIndicatorAttr(this.barItemInfo[targetIndex][0],
+                    this.barItemInfo[targetIndex][1]);
+                })
               })
-            })
-            Rect()
-              .height(2)
-              .width(this.indicatorWidth)
-              .radius(1)
-              .fill($r('app.color.bili_pink'))
-              .margin({ left: this.indicatorStart, top: 38 })
-          }.width('100%')
-          .layoutWeight(1)
+              Rect()
+                .height(2)
+                .width(this.indicatorWidth)
+                .radius(1)
+                .fill($r('app.color.bili_pink'))
+                .margin({ left: this.indicatorStart, top: 38 })
+            }.width('100%')
+          }.layoutWeight(1)
+          .mode(NavigationMode.Stack)
+          .hideTitleBar(true)
         }
       }
     }.hideTitleBar(true)
@@ -209,6 +213,7 @@ struct Player{
         let firstBv = this.dataSource.getData(0);
         firstBv.index = -1;
         currBv.index = 0;
+        this.currTabIndex = 0;
         this.bid = currBv.bvid;
         this.detail = null;
         this.loadDetail();

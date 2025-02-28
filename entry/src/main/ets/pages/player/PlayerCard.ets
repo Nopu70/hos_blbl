@@ -11,19 +11,19 @@ export struct PlayerCard{
   onItemClick: (bid: string) => void = () => {};
 
   @StorageProp("navHeight") navHeight: number = 0;
-  private listData: DataSource = new DataSource(this.data.Related);
+  private listData: DataSource = new DataSource(this.data?.Related);
 
   build() {
     List(){
       ListItem(){
         RelativeContainer() {
-          Image(this.data.View?.owner?.face)
+          Image(this.data?.View?.owner?.face)
             .width(50)
             .height(50)
             .borderRadius(25)
             .margin({ left: 10, top: 10 })
             .id("profile")
-          Text(this.data.View?.owner?.name)
+          Text(this.data?.View?.owner?.name)
             .fontSize(14)
             .fontColor($r('app.color.text_color1'))
             .margin({ left: 5, top: 5 })
@@ -31,7 +31,7 @@ export struct PlayerCard{
               left: { anchor: 'profile', align: HorizontalAlign.End },
               top: { anchor: 'profile', align: VerticalAlign.Top }
             })
-          Text(`${parseView(this.data.Card?.follower)}粉丝`)
+          Text(`${parseView(this.data?.Card?.follower)}粉丝`)
             .fontSize(12)
             .fontColor($r('app.color.text_color2'))
             .margin({ left: 5, bottom: 5 })
@@ -40,7 +40,7 @@ export struct PlayerCard{
               bottom: { anchor: 'profile', align: VerticalAlign.Bottom }
             })
           Row(){
-            if (this.data.Card?.following) {
+            if (this.data?.Card?.following) {
               Image($r('app.media.player_card_followed'))
                 .width(15)
                 .height(15)
@@ -60,12 +60,12 @@ export struct PlayerCard{
           }.alignRules({
             center: { anchor: 'profile', align: VerticalAlign.Center },
             right:  { anchor: '__container__', align: HorizontalAlign.End }
-          }).backgroundColor(this.data.Card?.following ? $r('app.color.text_color2') : $r('app.color.bili_pink'))
+          }).backgroundColor(this.data?.Card?.following ? $r('app.color.text_color2') : $r('app.color.bili_pink'))
           .margin({ right: 10 })
           .padding({ left: 10, right: 10 })
           .height(24)
           .borderRadius(12)
-          Text(`${this.data.View?.title}`)
+          Text(`${this.data?.View?.title}`)
             .fontColor($r('app.color.text_color1'))
             .margin({ left: 10, top: 20, right: 30 })
             .alignRules({
@@ -81,7 +81,7 @@ export struct PlayerCard{
               left: { anchor: '__container__', align: HorizontalAlign.Start },
               top: { anchor: 'title', align: VerticalAlign.Bottom },
             }).id("view")
-          Text(`${parseView(this.data.View?.stat?.view)}`)
+          Text(`${parseView(this.data?.View?.stat?.view)}`)
             .fontColor($r('app.color.text_color2'))
             .fontSize(12)
             .maxLines(1)
@@ -98,7 +98,7 @@ export struct PlayerCard{
               left: { anchor: 'view_n', align: HorizontalAlign.End },
               center: { anchor: 'view', align: VerticalAlign.Center }
             }).id("danmu")
-          Text(`${this.data.View?.stat?.danmaku}  ${formatData(this.data.View?.pubdate, true)}`)
+          Text(`${this.data?.View?.stat?.danmaku}  ${formatData(this.data?.View?.pubdate, true)}`)
             .fontColor($r('app.color.text_color2'))
             .fontSize(12)
             .maxLines(1)
@@ -112,7 +112,7 @@ export struct PlayerCard{
             Image($r('app.media.player_card_like'))
               .width(22)
               .height(22)
-            Text(parseView(this.data.View?.stat?.like))
+            Text(parseView(this.data?.View?.stat?.like))
               .fontColor($r('app.color.text_color2'))
               .fontSize(12)
               .margin({ top: 5 })
@@ -129,7 +129,7 @@ export struct PlayerCard{
               .width(22)
               .height(22)
               .margin({ top: 1 })
-            Text(parseView(this.data.View?.stat?.dislike))
+            Text(parseView(this.data?.View?.stat?.dislike))
               .fontColor($r('app.color.text_color2'))
               .fontSize(12)
               .margin({ top: 4 })
@@ -143,7 +143,7 @@ export struct PlayerCard{
             Image($r('app.media.player_card_coin'))
               .width(22)
               .height(22)
-            Text(parseView(this.data.View?.stat?.coin))
+            Text(parseView(this.data?.View?.stat?.coin))
               .fontColor($r('app.color.text_color2'))
               .fontSize(12)
               .margin({ top: 5 })
@@ -157,7 +157,7 @@ export struct PlayerCard{
             Image($r('app.media.player_card_fav'))
               .width(22)
               .height(22)
-            Text(parseView(this.data.View?.stat?.favorite))
+            Text(parseView(this.data?.View?.stat?.favorite))
               .fontColor($r('app.color.text_color2'))
               .fontSize(12)
               .margin({ top: 5 })
@@ -171,7 +171,7 @@ export struct PlayerCard{
             Image($r('app.media.player_card_share'))
               .width(22)
               .height(22)
-            Text(parseView(this.data.View?.stat?.share))
+            Text(parseView(this.data?.View?.stat?.share))
               .fontColor($r('app.color.text_color2'))
               .fontSize(12)
               .margin({ top: 5 })
@@ -222,12 +222,12 @@ struct CardItem{
   build() {
     Column() {
       Row() {
-        Image(this.data.pic)
+        Image(this.data?.pic)
           .layoutWeight(5)
           .height(80)
           .borderRadius(4)
         Column(){
-          Text(this.data.title)
+          Text(this.data?.title)
             .fontSize(14)
             .fontColor($r('app.color.text_color1'))
             .lineHeight(20)
@@ -239,7 +239,7 @@ struct CardItem{
             Image($r('app.media.hot_up'))
               .width(15)
               .height(12.5)
-            Text(this.data.owner?.name)
+            Text(this.data?.owner?.name)
               .fontColor($r('app.color.text_color2'))
               .fontSize(12)
               .maxLines(1)
@@ -248,7 +248,7 @@ struct CardItem{
             Image($r('app.media.hot_view'))
               .width(16)
               .height(16)
-            Text(`${parseView(this.data.stat?.view)}`)
+            Text(`${parseView(this.data?.stat?.view)}`)
               .fontColor($r('app.color.text_color2'))
               .fontSize(12)
               .maxLines(1)
@@ -256,7 +256,7 @@ struct CardItem{
               .width(16)
               .height(16)
               .margin({ left: 5 })
-            Text(`${parseView(this.data.stat?.danmaku)}`)
+            Text(`${parseView(this.data?.stat?.danmaku)}`)
               .fontColor($r('app.color.text_color2'))
               .fontSize(12)
               .maxLines(1)
@@ -278,12 +278,12 @@ struct CardItem{
 
     }.onClick(() => {
       // 多页面加载视频
-      // AppStorage.get<NavPathStack>("nav_stack")?.pushPathByName("Player", this.data.bvid,
+      // AppStorage.get<NavPathStack>("nav_stack")?.pushPathByName("Player", this.data?.bvid,
       //   (popInfo) => {
       //     Logger.info("Rec", JSON.stringify(popInfo.result));
       //   })
       // 单页面加载视频
-      this.onItemClick(this.data.bvid);
+      this.onItemClick(this.data?.bvid);
     })
   }
 }
@@ -292,7 +292,7 @@ class DataSource extends BaseDataSource<BVideo> {
   constructor(data?: BVideo[]) {
     super();
     if (data) {
-      this.data.splice(0, this.data.length, ...data);
+      this.data?.splice(0, this.data?.length, ...data);
     }
   }
   generateKey(index: number): string {

@@ -1,18 +1,15 @@
-
-@Observed
-export class User {
-  isLogin: boolean = false;
-  mid: number = 0;
-  face: string | null = null;
-  money: number = 0;
-  uname: string | null = null;
-  stat: Stat | null = null;
-  level: Resource = $r('app.media.user_level_0')
+export interface  User {
+  isLogin: boolean;
+  mid: number;
+  face: string;
+  money: number;
+  uname: string;
+  stat: Stat;
+  level: Resource;
 }
 
-@Observed
-export class Stat{
-  following: number = 0;
-  follower: number = 0;
-  dynamic_count: number = 0;
+export interface Stat{
+  following: number;
+  follower: number;
+  dynamic_count: number;
 }

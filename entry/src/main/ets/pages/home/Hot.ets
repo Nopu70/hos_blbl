@@ -52,6 +52,7 @@ export struct Hot {
         })
       }.width('100%')
       .height('100%')
+      .lanes({ minLength: 300, maxLength: 400 })
       .divider({
         strokeWidth: px2vp(1),
         color: Color.Gray,

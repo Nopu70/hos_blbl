@@ -39,6 +39,14 @@
       "data": {
         "description": "LiveArea"
       }
+    },
+    {
+      "name": "SReplies",
+      "pageSourceFile": "src/main/ets/pages/player/SReplies.ets",
+      "buildFunction": "entryBuilder",
+      "data": {
+        "description": "SReplies"
+      }
     }
   ]
 }

@@ -4,10 +4,9 @@ export struct Dynamic {
 
 
   build() {
-    Scroll() {
-      Column() {
-
-      }
-    }
+    GridRow({
+      columns: { sm: 4, md: 8, lg: 12 },
+      gutter: { x: 12 }
+    })
   }
 }

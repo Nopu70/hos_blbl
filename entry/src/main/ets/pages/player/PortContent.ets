@@ -1,6 +1,8 @@
 import { BVideo } from "../../model/BVideo";
+import { Reply } from "../../model/Reply";
 import { FullStyle } from "./BottomController";
-import { Replies } from "./Replies";
+import { Replies } from "./PortReplies";
+import { entryBuilder } from "./SReplies"
 
 
 @Component
@@ -14,11 +16,21 @@ export struct  PortContent {
 
   navHeight: number = AppStorage.get("navHeight") ?? 0;
   @Consume("nav_stack") navStack: NavPathStack;
+  @Provide("pr_nav_stack") prNavStack: NavPathStack = new NavPathStack();
+
+  @Builder
+  nd(name: string, param: Reply) {
+    if (name === "SReplies") {
+      entryBuilder(name, param);
+    }
+  }
 
   @Builder reply() {
-    Column() {
+    Navigation(this.prNavStack) {
       Replies({ bv: this.data })
-    }
+    }.mode(NavigationMode.Stack)
+    .navDestination(this.nd)
+    .hideTitleBar(true)
   }
 
   build() {

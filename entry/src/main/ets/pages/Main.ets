@@ -1,6 +1,5 @@
 import { Home } from 'ets/pages/home/Home'
 import { Dynamic } from './Dynamic';
-import { Rec } from './home/Rec';
 import { Mine } from './Mine';
 
 @Component

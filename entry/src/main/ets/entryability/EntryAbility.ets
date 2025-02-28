@@ -1,4 +1,4 @@
-import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { AbilityConstant, Configuration, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { JSON } from '@kit.ArkTS';
@@ -14,6 +14,14 @@ export default class EntryAbility extends UIAbility {
     }).catch(() => {
       console.log(`load cookie failed`);
     })
+    AppStorage.setOrCreate<ConfigurationConstant.ColorMode>('color_mode', this.context.config.colorMode);
+  }
+
+  onConfigurationUpdate(newConfig: Configuration): void {
+    const currentColorMode: ConfigurationConstant.ColorMode | undefined = AppStorage.get('color_mode');
+    if (currentColorMode != newConfig.colorMode) {
+      AppStorage.setOrCreate<ConfigurationConstant.ColorMode>('color_mode', newConfig.colorMode);
+    }
   }
 
   onDestroy(): void {
@@ -33,6 +41,7 @@ export default class EntryAbility extends UIAbility {
         return;
       }
       hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
+      PersistentStorage.persistProp("uid", 0);
     });
   }
 

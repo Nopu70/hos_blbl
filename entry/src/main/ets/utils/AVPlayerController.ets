@@ -79,12 +79,12 @@ export class AVPlayerController{
     this.startRenderFrame = false;
     this.playWhenReady = false;
 
-    let roomUrl = await rvm.getUrl(room.roomid);
-    if (roomUrl instanceof ErrorMsg) {
-      Logger.error(TAG, `加载视频URL失败 error: ${roomUrl.message}`)
+    let url = await rvm.getUrl(room.roomid);
+    if (url instanceof ErrorMsg) {
+      Logger.error(TAG, `加载视频URL失败 error: ${url.message}`)
 
     } else {
-      Logger.info(TAG, `打开URL: ${roomUrl.durl?.[0]?.url}`)
+      Logger.info(TAG, `打开URL: ${url}`)
       // let ms = media.createMediaSourceWithUrl(
       //   roomUrl.durl?.[0]?.url,
       //   // "http://10.168.1.103/test.mp4",
@@ -98,7 +98,7 @@ export class AVPlayerController{
       // this.mPlayer?.setMediaSource(ms)
 
       if (this.mPlayer) {
-        this.mPlayer.url = roomUrl.durl[0].url;
+        this.mPlayer.url = url;
       }
     }
   }

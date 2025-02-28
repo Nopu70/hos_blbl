@@ -69,4 +69,24 @@ export class PlayerViewModel{
       return new ErrorMsg(error.message);
     });
   }
+
+  static async getReplyReply(oid: number, root: number, pn: number, ps: number = 10) : Promise<Reply[] | ErrorMsg> {
+    let url = `https://api.bilibili.com/x/v2/reply/reply?type=1&oid=${oid}&root=${root}&ps=${ps}&pn=${pn}`;
+    return httpRequestGet(url).then((result) => {
+      if (result?.["code"] == 0) {
+        let data: Reply[] = [];
+        if (pn === 1) {
+          let root = result?.["data"]?.["root"] as Reply;
+          if (root) {
+            data.splice(0, 0, root);
+          }
+        }
+        data.splice(data.length, 0, ...(result?.["data"]?.["replies"] as Reply[]));
+        return data!;
+      }
+      return new ErrorMsg(`请求错误: ${result?.["message"]}`);
+    }).catch((error: Error) => {
+      return new ErrorMsg(error.message);
+    });
+  }
 }

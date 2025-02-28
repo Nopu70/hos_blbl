@@ -12,7 +12,6 @@ export struct Rec {
   @State isRefreshing: boolean = false;
   private data: BVDataSource = new BVDataSource();
   private vm: RecViewModel = new RecViewModel();
-  private scroller = new Scroller();
 
   onDidBuild(): void {
     this.loadData();
@@ -31,35 +30,45 @@ export struct Rec {
   build() {
 
     Refresh({refreshing : $$this.isRefreshing}) {
+      List() {
+        LazyForEach(this.data, (item:BVideo, _index) => {
 
-      Grid(this.scroller){
-
-        LazyForEach(this.data, (item:BVideo, index) => {
-
-          GridItem() {
+          ListItem() {
             BVCardView({ data: item })
-          }.width('100%')
-          .offset({ top: 5 })
-          .margin({ bottom: this.data.totalCount() - 1 === index ? 10 : 0 })
-          .reuseId("BVCardView")
+          }.reuseId("BVCardView")
 
         }, (item: BVideo) => {
           return item.bvid;
         })
-
-      }.width('100%')
-      .height('100%')
+      }.width('100%').height('100%')
       .padding({ left: 5, right: 5 })
-      .columnsTemplate("1fr 1fr")
-      .columnsGap(5)
-      .rowsGap(5)
+      .lanes({ minLength: 180, maxLength: 400}, 5)
+      .offset({ top: 5 })
+      .contentEndOffset(10)
       .scrollBar(BarState.Off)
-      .supportAnimation(false)
       .cachedCount(3)
       .nestedScroll({
         scrollForward: NestedScrollMode.PARENT_FIRST,
         scrollBackward: NestedScrollMode.SELF_FIRST
       })
+
+      // Grid(this.scroller){
+      //
+      //
+      //
+      // }.width('100%')
+      // .height('100%')
+      // .padding({ left: 5, right: 5 })
+      // .columnsTemplate("1fr 1fr")
+      // .columnsGap(5)
+      // .rowsGap(5)
+      // .scrollBar(BarState.Off)
+      // .supportAnimation(false)
+      // .cachedCount(3)
+      // .nestedScroll({
+      //   scrollForward: NestedScrollMode.PARENT_FIRST,
+      //   scrollBackward: NestedScrollMode.SELF_FIRST
+      // })
 
     }.width('100%')
     .height('100%')
@@ -105,6 +114,7 @@ struct BVCardView {
       }.margin({ top: 8, bottom: 8})
       .padding({ left: 8, right: 8 })
     }.width('100%')
+    .margin({ bottom: 5 })
     .backgroundColor(Color.White)
     .borderRadius(4)
     .clip(true)

@@ -1,5 +1,6 @@
 import { Stat, User } from "../model/User";
 import { MineViewModel } from "../viewmodel/MineViewModel"
+import ConfigurationConstant from "@ohos.app.ability.ConfigurationConstant";
 
 @Component
 export struct Mine {
@@ -51,19 +52,29 @@ export struct Mine {
 @Component
 struct MineLogin{
 
-  @ObjectLink user: User;
-  @ObjectLink stat: Stat;
+  @StorageProp("color_mode") colorMode: ConfigurationConstant.ColorMode = ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
+
+  @Prop user: User;
+  @Prop stat: Stat;
 
   build() {
     RelativeContainer() {
-      Image($r('app.media.ic_mine_daynight_day'))
+      Image(this.colorMode == ConfigurationConstant.ColorMode.COLOR_MODE_DARK ?
+            $r("app.media.ic_mine_daynight_night") : $r("app.media.ic_mine_daynight_day"))
         .width(36)
         .height(36)
         .padding(8)
         .alignRules({ end: { anchor: "__container__", align: HorizontalAlign.End } })
         .margin({ top: 50, right: 20 })
+        .onClick(() => {
+          if (this.colorMode == ConfigurationConstant.ColorMode.COLOR_MODE_DARK) {
+            getContext().getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT);
+          } else {
+            getContext().getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
+          }
+        })
 
-      Image(this.user.face)
+      Image(this.user?.face)
         .width(60)
         .height(60)
         .borderRadius(35)
@@ -77,7 +88,7 @@ struct MineLogin{
           left: 20
         }).id("face")
 
-      Text(this.user.uname)
+      Text(this.user?.uname)
         .fontSize(16)
         .fontColor($r('app.color.text_color1'))
         .alignRules({
@@ -86,7 +97,7 @@ struct MineLogin{
         }).margin({
           left: 30
         })
-      Image(this.user.level)
+      Image(this.user?.level)
         .width(27)
         .height(14)
         .alignRules({
@@ -104,7 +115,7 @@ struct MineLogin{
         }).margin({
           left: 30
         }).id("coin_lab")
-      Text(`${this.user.money}`)
+      Text(`${this.user?.money}`)
         .fontColor($r('app.color.text_color2'))
         .fontSize(12)
         .alignRules({
@@ -133,7 +144,7 @@ struct MineLogin{
         })
 
       Column() {
-        Text(`${this.stat.dynamic_count}`)
+        Text(`${this.stat?.dynamic_count}`)
           .textAlign(TextAlign.Center)
           .fontSize(16)
           .fontColor($r('app.color.text_color1'))
@@ -161,7 +172,7 @@ struct MineLogin{
         }).id("divider1")
 
       Column() {
-        Text(`${this.stat.following}`)
+        Text(`${this.stat?.following}`)
           .textAlign(TextAlign.Center)
           .fontSize(16)
           .fontColor($r('app.color.text_color1'))
@@ -187,7 +198,7 @@ struct MineLogin{
         }).id("divider2")
 
       Column() {
-        Text(`${this.stat.follower}`)
+        Text(`${this.stat?.follower}`)
           .textAlign(TextAlign.Center)
           .fontSize(16)
           .fontColor($r('app.color.text_color1'))

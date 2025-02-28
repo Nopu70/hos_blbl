@@ -59,18 +59,19 @@ export class WindowUtil {
       let statusHeight = avoidArea.topRect.height;
       AppStorage.setOrCreate("statusHeight", px2vp(statusHeight));
 
-      windows.on("avoidAreaChange", (data) => {
-        if (data.type === window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR) {
-          let navHeight = data.area.bottomRect.height;
-          AppStorage.setOrCreate("navHeight", px2vp(navHeight));
-        } else if (data.type === window.AvoidAreaType.TYPE_SYSTEM) {
-          let statusHeight = data.area.topRect.height;
-          AppStorage.setOrCreate("statusHeight", px2vp(statusHeight));
-        } else if (data.type === window.AvoidAreaType.TYPE_KEYBOARD) {
-          let statusHeight = data.area.bottomRect.height;
-          AppStorage.setOrCreate("keyboardHeight", px2vp(statusHeight));
-        }
-      })
+      // windows.on("avoidAreaChange", (data) => {
+      //   if (data.type === window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR) {
+      //     let navHeight = data.area.bottomRect.height;
+      //     AppStorage.setOrCreate("navHeight", px2vp(navHeight));
+      //   } else if (data.type === window.AvoidAreaType.TYPE_SYSTEM) {
+      //     let statusHeight = data.area.topRect.height;
+      //     AppStorage.setOrCreate("statusHeight", px2vp(statusHeight));
+      //   } else
+      //     if (data.type === window.AvoidAreaType.TYPE_KEYBOARD) {
+      //     let statusHeight = data.area.bottomRect.height;
+      //     AppStorage.setOrCreate("keyboardHeight", px2vp(statusHeight));
+      //   }
+      // })
     });
   }
 

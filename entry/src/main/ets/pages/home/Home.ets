@@ -1,4 +1,4 @@
-import { CircleShape } from "@kit.ArkUI";
+import { CircleShape, UIUtils } from "@kit.ArkUI";
 import { Rec } from "ets/pages/home/Rec"
 import { Hot } from "./Hot";
 import { Lives } from "./Lives";
@@ -15,7 +15,8 @@ export struct Home {
   @State indicatorWidth: number = 20;
   @State indicatorStart: number = 0
 
-  @State private index: number = 1;
+  private initIndex: number = 1;
+  @State private index: number = this.initIndex;
   private tabWidth: number = 0;
   private barItemInfo:[number, number][] = [];
 
@@ -25,6 +26,11 @@ export struct Home {
       .textAlign(TextAlign.Center)
       .onAreaChange((_oldValue, newValue) => {
         this.barItemInfo[index] = [newValue.globalPosition.x as number, newValue.width as number]
+
+        if (this.initIndex === index) {
+          this.setIndicatorAttr(this.barItemInfo[this.initIndex][0],
+            this.barItemInfo[this.initIndex][1])
+        }
       })
   }
 
@@ -44,8 +50,10 @@ export struct Home {
           }.height(36)
           .layoutWeight(1)
           .margin({ left: 20, right: 12 })
-          .backgroundColor($r('app.color.home_search'))
+          .borderWidth(1)
+          .borderColor($r('app.color.text_color1'))
           .borderRadius(18)
+
           Image($r('app.media.home_msg'))
             .width(36)
             .height(36)
@@ -53,12 +61,12 @@ export struct Home {
         }.height(50)
         .padding({ left: 20, right: 12 })
         .margin({ top: this.statusHeight })
-        .opacity(1 - this.yOffsets / 55)
+        .opacity(1 - this.yOffsets / 50)
 
         Stack({alignContent: Alignment.TopStart}){
           Tabs({
             barPosition: BarPosition.Start,
-            index: 1
+            index: this.initIndex
           }){
             TabContent(){
               Lives()
@@ -76,8 +84,8 @@ export struct Home {
           .edgeEffect(EdgeEffect.None)
           .onAreaChange((_o, n) => {
             this.tabWidth = n.width as number;
-            this.setIndicatorAttr(this.barItemInfo[this.index][0],
-              this.barItemInfo[this.index][1])
+            // this.setIndicatorAttr(this.barItemInfo[this.index][0],
+            //   this.barItemInfo[this.index][1])
           }).onGestureSwipe((index, event) => {
             let next = index;
             let cs = this.barItemInfo[index][0];
@@ -98,6 +106,7 @@ export struct Home {
             this.setIndicatorAttr(is, iw);
           }).onAnimationStart((_index, targetIndex, event) => {
             this.index = targetIndex;
+            this.initIndex = targetIndex;
             let duration = 300;
             if (event.velocity !== 0) {
               duration = Math.min(duration, Math.abs(event.targetOffset * 1000 / event.velocity));

@@ -174,7 +174,7 @@ struct RepliesItem{
           })
           Text(this.isFold ? "展开" : "收起")
             .width(40)
-            .fontColor("#ff00699d")
+            .fontColor($r('app.color.replies_nane'))
             .fontSize(14.5)
             .lineHeight(24)
             .visibility(this.isOver ? Visibility.Visible : Visibility.None)
@@ -216,7 +216,7 @@ struct RepliesItem{
                 Text(`${item.member?.uname}: ${item.content?.message}`) {
                   Span(`${item.member?.uname}: `)
                     .fontSize(14.5)
-                    .fontColor("#ff00699d")
+                    .fontColor($r('app.color.replies_nane'))
                   ForEach(parseReply(item.content?.message, item.content?.emote), (item: string) => {
                     if (item.startsWith("http")) {
                       ImageSpan(item)
@@ -238,12 +238,12 @@ struct RepliesItem{
               if (this.data.rcount > 3) {
                 Text(`查看${this.data.rcount}条回复 >`)
                   .fontSize(12)
-                  .fontColor("#ff00699d")
+                  .fontColor($r('app.color.replies_nane'))
                   .margin({ top: 6 })
               }
             }.width('100%')
             .alignItems(HorizontalAlign.Start)
-            .backgroundColor("#fff6f7f8")
+            .backgroundColor($r('app.color.replies_bg'))
             .padding(8)
             .margin({ top: 10 })
             .borderRadius(4)

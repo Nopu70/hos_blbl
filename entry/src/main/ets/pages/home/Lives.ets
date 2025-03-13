@@ -57,7 +57,7 @@ export struct Lives {
             .columnsTemplate('1fr 1fr 1fr 1fr 1fr')
             .columnsGap(10)
             .rowsGap(10)
-            .backgroundColor(Color.White)
+            .backgroundColor($r('app.color.main_card_bg'))
           }
         }
 
@@ -115,7 +115,7 @@ export struct Lives {
         scrollForward: NestedScrollMode.PARENT_FIRST,
         scrollBackward: NestedScrollMode.SELF_FIRST
       })
-    }.backgroundColor("#ffe5e5e5")
+    }.backgroundColor($r('app.color.home_bg'))
     .onRefreshing(() => {
       this.loadData();
     })
@@ -171,7 +171,7 @@ struct RoomItem{
           bottom: { anchor: "face", align: VerticalAlign.Bottom },
           left: { anchor: "face", align: HorizontalAlign.End },
         }).margin({ left: 4 })
-    }.backgroundColor(Color.White)
+    }.backgroundColor($r('app.color.main_card_bg'))
     .height(150)
     .borderRadius(4)
     .clip(true)

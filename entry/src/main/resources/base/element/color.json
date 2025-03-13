@@ -25,8 +25,36 @@
       "value": "#FFDDDDDD"
     },
     {
+      "name": "main_bg",
+      "value": "#FFFFFFFF"
+    },
+    {
       "name": "home_search",
       "value": "#FFE9E9E9"
+    },
+    {
+      "name": "main_tab_text_n",
+      "value": "#FF6B6B6B"
+    },
+    {
+      "name": "main_tab_text_s",
+      "value": "#FFFB7299"
+    },
+    {
+      "name": "main_card_bg",
+      "value": "#FFFFFFFF"
+    },
+    {
+      "name": "home_bg",
+      "value": "#FFE5E5E5"
+    },
+    {
+      "name": "replies_bg",
+      "value": "#FFF6F7F8"
+    },
+    {
+      "name": "replies_nane",
+      "value": "#FF00A2FF"
     }
   ]
 }

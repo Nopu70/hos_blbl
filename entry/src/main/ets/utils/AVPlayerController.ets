@@ -9,6 +9,7 @@ import { parseTimeS } from "./ParseUtil";
 import { AVSessionManager } from "./AVSessionManager";
 import { avSession } from "@kit.AVSessionKit";
 import { Room } from "../model/Live";
+import { Cookies } from "../model/Cookies";
 
 const TAG = '[AvPlayerController]';
 
@@ -62,7 +63,7 @@ export class AVPlayerController{
         // "http://10.168.1.103/test.mp4",
         {
           "Content-Type": "application/json",
-          "Cookie": AppStorage.get<string>("cookies"),
+          "Cookie": AppStorage.get<Cookies>("cookies")?.cookies,
           "Referer": "https://m.bilibili.com/",
           "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36 Edg/130.0.0.0"
         }
@@ -90,7 +91,7 @@ export class AVPlayerController{
       //   // "http://10.168.1.103/test.mp4",
       //   {
       //     "Content-Type": "application/json",
-      //     "Cookie": AppStorage.get<string>("cookies"),
+      //     "Cookie": AppStorage.get<Cookies>("cookies")?.cookies,
       //     "Referer": "https://m.bilibili.com/",
       //     "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36 Edg/130.0.0.0"
       //   }

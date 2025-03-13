@@ -132,6 +132,7 @@ struct Player{
                 .margin({ left: this.indicatorStart, top: 38 })
             }.width('100%')
           }.layoutWeight(1)
+          .backgroundColor($r('app.color.main_card_bg'))
           .mode(NavigationMode.Stack)
           .hideTitleBar(true)
         }

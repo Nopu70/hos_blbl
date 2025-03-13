@@ -11,6 +11,34 @@
     {
       "name": "text_color2",
       "value": "#FFCCCCCC"
+    },
+    {
+      "name": "main_bg",
+      "value": "#FF151515"
+    },
+    {
+      "name": "home_search",
+      "value": "#FF000000"
+    },
+    {
+      "name": "main_tab_text_n",
+      "value": "#FFFFFFFF"
+    },
+    {
+      "name": "main_tab_text_s",
+      "value": "#FFFB7299"
+    },
+    {
+      "name": "main_card_bg",
+      "value": "#FF151515"
+    },
+    {
+      "name": "home_bg",
+      "value": "#FF000000"
+    },
+    {
+      "name": "replies_bg",
+      "value": "#FF000000"
     }
   ]
 }

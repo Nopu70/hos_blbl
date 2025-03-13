@@ -9,6 +9,7 @@ import { BusinessError } from "@kit.BasicServicesKit";
 import Logger from "../../utils/Logger";
 import { buffer, HashSet } from "@kit.ArkTS";
 import { parseBiliDm } from "brotli";
+import { Cookies } from "../../model/Cookies";
 
 const TAG = '[Room]';
 
@@ -157,17 +158,17 @@ struct Room {
       }
     });
     this.ws.on("error", (err: BusinessError) => {
-      Logger.error(TAG, `dm connect error: ${err.message}`);
+      Logger.error(TAG, `dm connect error: ${JSON.stringify(err)}`);
     });
-    let host = dminfo.host_list[dminfo.host_list.length - 1];
+    let host = dminfo.host_list[0];
     this.ws.connect(`wss://${host.host}:${host.wss_port}/sub`,
       (err: BusinessError) => {
       if (err) {
-        Logger.error(TAG, `dm connect failed: ${err.code}`);
+        Logger.error(TAG, `dm connect failed: ${JSON.stringify(err)}`);
         return;
       }
       Logger.info(TAG, `dm connect succeed`);
-      let rz = `{"uid":${this.uid},"roomid":${this.data?.roomid},"protover":3,"platform":"web","type":2,"key":"${key}"}`;
+      let rz = `{"uid":${this.uid},"roomid":${this.data?.roomid},"protover":3,"buvid":"${AppStorage.get<Cookies>("cookies")?.getCookie("buvid3")}","platform":"web","type":2,"key":"${key}"}`;
       this.sendData(rz, 1, 7);
       this.sendHeartbeat();
     });
@@ -208,7 +209,7 @@ struct Room {
     buf.write(data, 16, dataLength);
     this.ws.send(arrayBuf).then((result) => {
       if (result) {
-        Logger.info(TAG, `send data succeed: ${buf.toString('utf8', 16)} bit`);
+        Logger.info(TAG, `send data succeed: ${buf.toString('utf8', 16)}`);
       }
     }).catch((err: BusinessError) => {
       Logger.error(TAG, `send data failed: ${err.message}`);

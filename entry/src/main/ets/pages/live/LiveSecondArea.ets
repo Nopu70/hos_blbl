@@ -76,7 +76,6 @@ export struct LiveSecondArea{
           })
       })
     }.width('100%')
-    .backgroundColor(Color.White)
   }
 
   build() {

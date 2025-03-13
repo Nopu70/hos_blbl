@@ -1,6 +1,6 @@
 import { webview } from "@kit.ArkWeb"
 import { BusinessError } from "@kit.BasicServicesKit";
-import { window } from "@kit.ArkUI";
+import { Cookies } from "../model/Cookies";
 
 @Builder
 export function entryBuilder() {
@@ -40,7 +40,7 @@ struct Login{
               webview.WebCookieManager.saveCookieAsync().then(() => {
                 return webview.WebCookieManager.fetchCookie("api.bilibili.com");
               }).then((cookies) => {
-                AppStorage.setOrCreate("cookies", cookies);
+                AppStorage.setOrCreate("cookies", new Cookies(cookies));
                 this.navStack.pop(1, true);
               }).catch(() => {
                 this.navStack.pop(0, true);

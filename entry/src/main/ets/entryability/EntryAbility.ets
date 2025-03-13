@@ -4,17 +4,17 @@ import { window } from '@kit.ArkUI';
 import { JSON } from '@kit.ArkTS';
 import { webview } from '@kit.ArkWeb';
 import { WindowUtil } from '../utils/WindowUtil';
+import { Cookies } from '../model/Cookies';
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
     AppStorage.setOrCreate("context", this.context);
     webview.WebCookieManager.fetchCookie("api.bilibili.com").then((cookies) => {
-      AppStorage.setOrCreate("cookies", cookies);
+      AppStorage.setOrCreate("cookies", new Cookies(cookies));
     }).catch(() => {
       console.log(`load cookie failed`);
     })
-    AppStorage.setOrCreate<ConfigurationConstant.ColorMode>('color_mode', this.context.config.colorMode);
   }
 
   onConfigurationUpdate(newConfig: Configuration): void {
@@ -32,7 +32,6 @@ export default class EntryAbility extends UIAbility {
     // Main window is created, set main page for this ability
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
-
     WindowUtil.getInstance().setWindowStage(windowStage);
 
     windowStage.loadContent('pages/Index', (err) => {
@@ -41,6 +40,11 @@ export default class EntryAbility extends UIAbility {
         return;
       }
       hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
+
+      PersistentStorage.persistProp("color_mode", ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
+      let colorMode = AppStorage.get<ConfigurationConstant.ColorMode>("color_mode");
+      this.context.getApplicationContext().setColorMode(colorMode)
+
       PersistentStorage.persistProp("uid", 0);
     });
   }

@@ -33,9 +33,6 @@ export class MineViewModel{
   }
 
   async loadUserStat() {
-    await new Promise<void>((resolve: Function, reject: Function) => {
-      setTimeout(resolve, 2000)
-    })
     let url = "https://api.bilibili.com/x/web-interface/nav/stat";
     httpRequestGet(url).then((result) => {
       this.stat = result["data"] as Stat;

@@ -3,6 +3,7 @@ import { ErrorMsg } from "../../model/ErrorMsg";
 import { promptAction } from "@kit.ArkUI";
 import { LiveArea as MArea } from "../../model/Live"
 import { LiveSecondArea } from "./LiveSecondArea";
+import Logger from "../../utils/Logger";
 
 @Builder
 export function entryBuilder(_: string, params: [areaId: number, parentId: number]) {
@@ -151,12 +152,14 @@ struct LiveArea{
                 let io = currentOffset - scrollOffset + c_n_offset;
                 let iw = currentWidth + (nextWidth - currentWidth) * p;
                 this.setIndicatorAttr(io, iw);
+                Logger.debug("on_anim_start_GestureSwipe");
               }).onAnimationStart((_index, targetIndex, event) => {
                 let duration = 300;
                 if (event.velocity !== 0) {
                   duration = Math.min(duration, Math.abs(event.targetOffset * 1000 / event.velocity));
                 }
 
+                Logger.debug("on_anim_start");
                 let scrollOffset = Math.min(this.barCanScrollX, Math.max(this.barInfo[targetIndex][0] - 60, 0));
                 this.scroller.scrollTo({
                   xOffset: scrollOffset,

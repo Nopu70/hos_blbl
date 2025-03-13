@@ -1,5 +1,5 @@
 import { Home } from 'ets/pages/home/Home'
-import { Dynamic } from './Dynamic';
+import { Dynamic } from './dynamic/Dynamic';
 import { Mine } from './Mine';
 
 @Component
@@ -18,7 +18,7 @@ export struct Main {
         .color(Color.Transparent)
       Text(text)
         .fontSize(12)
-        .fontColor(index === this.currentIndex ? '#ffff6bae' : '#6B6B6B')
+        .fontColor(index === this.currentIndex ? $r('app.color.main_tab_text_s') : $r('app.color.main_tab_text_n'))
     }
   }
 
@@ -47,6 +47,7 @@ export struct Main {
       .onChange((index) => {
         this.currentIndex = index
       })
+      .backgroundColor($r('app.color.main_bg'))
     }.hideTitleBar(true)
   }
 }

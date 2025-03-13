@@ -72,7 +72,7 @@ export struct Rec {
 
     }.width('100%')
     .height('100%')
-    .backgroundColor('#ffe5e5e5')
+    .backgroundColor($r('app.color.home_bg'))
     .onRefreshing(() => this.loadData())
     .refreshOffset(60)
   }
@@ -110,12 +110,12 @@ struct BVCardView {
           .layoutWeight(1)
           .margin({ left: 5 })
           .fontSize(12)
-          .fontColor('#ff919191')
+          .fontColor($r('app.color.text_color2'))
       }.margin({ top: 8, bottom: 8})
       .padding({ left: 8, right: 8 })
     }.width('100%')
     .margin({ bottom: 5 })
-    .backgroundColor(Color.White)
+    .backgroundColor($r('app.color.main_card_bg'))
     .borderRadius(4)
     .clip(true)
     .onClick(() => {

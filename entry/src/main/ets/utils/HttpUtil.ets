@@ -1,6 +1,7 @@
 import http from "@ohos.net.http";
 import { JSON } from "@kit.ArkTS";
 import { image } from "@kit.ImageKit";
+import { Cookies } from "../model/Cookies";
 
 
 export function httpRequestGet(url: string): Promise<object> {
@@ -9,7 +10,7 @@ export function httpRequestGet(url: string): Promise<object> {
     method: http.RequestMethod.GET,
     header: {
       'Content-Type': 'application/json',
-      'Cookie': AppStorage.get<string>("cookies"),
+      'Cookie': AppStorage.get<Cookies>("cookies")?.cookies,
       'Referer': 'https://m.bilibili.com/',
       'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36 Edg/130.0.0.0'
     }
@@ -32,7 +33,7 @@ export function httpRequestPost(url: string, params: string): Promise<object> {
     method: http.RequestMethod.POST,
     header: {
       'Content-Type': 'application/json',
-      'Cookie': AppStorage.get<string>("cookies"),
+      'Cookie': AppStorage.get<Cookies>("cookies")?.cookies,
       'Referer': 'https://m.bilibili.com/',
       'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36 Edg/130.0.0.0'
     }
@@ -55,7 +56,7 @@ export async function httpRequestPic(url: string, size: image.Size): Promise<Pix
   //   method: http.RequestMethod.GET,
   //   header: {
   //     'Content-Type': 'application/json',
-  //     'Cookie': AppStorage.get<string>("cookies"),
+  //     'Cookie': AppStorage.get<Cookies>("cookies")?.cookies,
   //     'Referer': 'https://m.bilibili.com/',
   //     'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36 Edg/130.0.0.0'
   //   }

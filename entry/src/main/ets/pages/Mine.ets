@@ -60,7 +60,7 @@ struct MineLogin{
   build() {
     RelativeContainer() {
       Image(this.colorMode == ConfigurationConstant.ColorMode.COLOR_MODE_DARK ?
-            $r("app.media.ic_mine_daynight_night") : $r("app.media.ic_mine_daynight_day"))
+            $r("app.media.ic_mine_daynight_day") : $r("app.media.ic_mine_daynight_night"))
         .width(36)
         .height(36)
         .padding(8)

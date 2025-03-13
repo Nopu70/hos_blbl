@@ -83,6 +83,18 @@
     {
       "name": "s_reply_title",
       "value": "评论详情"
+    },
+    {
+      "name": "dy_tab1",
+      "value": "视频"
+    },
+    {
+      "name": "dy_tab2",
+      "value": "综合"
+    },
+    {
+      "name": "dy_upl_title",
+      "value": "最常访问"
     }
   ]
 }

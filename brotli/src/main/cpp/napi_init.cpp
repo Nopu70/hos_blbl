@@ -9,6 +9,9 @@
 #include <vector>
 #include <string>
 
+#undef LOG_TAG
+#define LOG_TAG "__BROTLI__"
+
 static napi_value Uncompress(napi_env env, napi_callback_info info)
 {
     size_t argc = 1;
@@ -80,10 +83,9 @@ void executeCallback(napi_env env, void* data)
     CallbackData* cbData = static_cast<CallbackData*>(data);
     
     size_t decode_size = 1024 * 128;
-    uint8_t * decode_buf = (uint8_t *)malloc(decode_size);
+    uint8_t decode_buf[decode_size];
     BrotliDecoderResult decResult = BrotliDecoderDecompress(cbData->buffer_size, (const uint8_t *)cbData->buffer, &decode_size, decode_buf);
     if (decResult != BROTLI_DECODER_RESULT_SUCCESS) {
-        free(decode_buf);
         cbData->error = "解码数据失败: ";
         cbData->error += decResult;
         return;
@@ -92,19 +94,15 @@ void executeCallback(napi_env env, void* data)
     uint32_t buf_index = 0;
     uint32_t dm_index = 0;
     Header *header;
-    while (buf_index < cbData->buffer_size) {
+    while (buf_index < decode_size) {
         header = (Header *)(decode_buf + buf_index);
         int p_size = ntohl(header->packet_size);
-        if (p_size == 0) {
-            OH_LOG_ERROR(LOG_APP, "数据包尺寸为0 index: %{public}d-%{public}d  buffer_size: %{public}zu", buf_index, dm_index, cbData->buffer_size);
-            break;
-        }
         int h_size = ntohs(header->heard_size);
+        
         cbData->resultData.emplace_back((char*)decode_buf + buf_index + h_size, p_size - h_size);
         buf_index += p_size;
         dm_index++;
     }
-    free(decode_buf);
 }
 
 void completeCallback(napi_env env, napi_status status, void* data)

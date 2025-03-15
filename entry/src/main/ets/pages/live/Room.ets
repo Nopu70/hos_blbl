@@ -32,7 +32,7 @@ struct Room {
   private surfaceSize?: SizeOptions;
   private ws = webSocket.createWebSocket();
   private intervalID?: number;
-  private sequence: number = 0;
+  private sequence: number = 1;
   private dmData = new DMDataSource();
   private scroller = new Scroller();
 
@@ -160,18 +160,20 @@ struct Room {
     this.ws.on("error", (err: BusinessError) => {
       Logger.error(TAG, `dm connect error: ${JSON.stringify(err)}`);
     });
+
     let host = dminfo.host_list[0];
-    this.ws.connect(`wss://${host.host}:${host.wss_port}/sub`,
-      (err: BusinessError) => {
+    this.ws.connect(`wss://${host.host}:${host.wss_port}/sub`, {
+
+    }, (err: BusinessError) => {
       if (err) {
         Logger.error(TAG, `dm connect failed: ${JSON.stringify(err)}`);
         return;
       }
       Logger.info(TAG, `dm connect succeed`);
-      let rz = `{"uid":${this.uid},"roomid":${this.data?.roomid},"protover":3,"buvid":"${AppStorage.get<Cookies>("cookies")?.getCookie("buvid3")}","platform":"web","type":2,"key":"${key}"}`;
-      this.sendData(rz, 1, 7);
+      let token = `{"uid":${this.uid},"roomid":${this.data?.roomid},"protover":3,"buvid":"${AppStorage.get<Cookies>("cookies")?.getCookie("buvid3")}","platform":"web","type":2,"key":"${key}"}`;
+      this.sendAuth(token);
       this.sendHeartbeat();
-    });
+    })
   }
 
   parsePacket(packet: string) {
@@ -209,12 +211,19 @@ struct Room {
     buf.write(data, 16, dataLength);
     this.ws.send(arrayBuf).then((result) => {
       if (result) {
+        Logger.info(TAG, `send data succeed: ${buf.toString('hex', 0, 16)}`);
         Logger.info(TAG, `send data succeed: ${buf.toString('utf8', 16)}`);
       }
     }).catch((err: BusinessError) => {
       Logger.error(TAG, `send data failed: ${err.message}`);
     });
     this.sequence++;
+  }
+
+  sendAuth(token: string) {
+    setTimeout(() => {
+      this.sendData(token, 1, 7);
+    }, 2000);
   }
 
   sendHeartbeat() {
